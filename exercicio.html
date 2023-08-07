@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenha varias cores</title>
+</head>
+
+<body>
+    <canvas width="600" height="400"></canvas>
+</body>
+<script>
+    let tela = document.querySelector('canvas');
+    let pincel = tela.getContext('2d');
+    pincel.fillStyle = 'grey';
+    pincel.fillRect(0, 0, 600, 400);
+    let cores = ["blue","red","green"]
+    let corAtual = 0; 
+
+    // para que a bolinha mude de cor as lets deveriam estar no escopo global para pegar nas duas funções, a cor atual recebe 0 pois na função DesenhaCirculo ela sera passada para cores como um array então ela começa com 0 pois é a cor azul.
+    function desenhaCirculo(evento) {
+
+        let x = evento.pageX - tela.offsetLeft;
+        let y = evento.pageY - tela.offsetTop;
+        pincel.fillStyle = cores[corAtual];
+        pincel.beginPath();
+        pincel.arc(x, y, 10, 0, 2 * 3.14);
+        pincel.fill();
+        console.log(x + ',' + y);
+
+    }
+
+    tela.onclick = desenhaCirculo;
+    function mudaCor() {
+        corAtual++
+        if(corAtual >= cores.length){
+            corAtual = 0;
+        }
+        alert('Você mudou a cor da bolinha!');
+        return false;
+    }
+
+    tela.oncontextmenu = mudaCor;
+
+</script>
+
+</html>
